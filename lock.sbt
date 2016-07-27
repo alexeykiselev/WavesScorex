@@ -18,10 +18,10 @@ dependencyOverrides in ThisBuild ++= Set(
   "com.fasterxml.jackson.module" % "jackson-module-jaxb-annotations" % "2.4.5",
   "com.fasterxml.jackson.module" % "jackson-module-scala_2.11" % "2.4.2",
   "com.github.pathikrit" % "better-files_2.11" % "2.13.0",
-  "com.github.swagger-akka-http" % "swagger-akka-http_2.11" % "0.7.1",
+  "com.github.swagger-akka-http" % "swagger-akka-http_2.11" % "0.7.2",
   "com.google.code.findbugs" % "annotations" % "2.0.1",
   "com.google.code.findbugs" % "jsr305" % "2.0.1",
-  "com.google.guava" % "guava" % "18.0",
+  "com.google.guava" % "guava" % "19.0",
   "com.h2database" % "h2-mvstore" % "1.4.192",
   "com.ning" % "async-http-client" % "1.9.11",
   "com.thoughtworks.paranamer" % "paranamer" % "2.6",
@@ -31,7 +31,7 @@ dependencyOverrides in ThisBuild ++= Set(
   "com.typesafe.akka" % "akka-actor_2.11" % "2.4.8",
   "com.typesafe.akka" % "akka-http-core_2.11" % "2.4.8",
   "com.typesafe.akka" % "akka-http-experimental_2.11" % "2.4.8",
-  "com.typesafe.akka" % "akka-http-spray-json-experimental_2.11" % "2.4.7",
+  "com.typesafe.akka" % "akka-http-spray-json-experimental_2.11" % "2.4.8",
   "com.typesafe.akka" % "akka-parsing_2.11" % "2.4.8",
   "com.typesafe.akka" % "akka-stream_2.11" % "2.4.8",
   "com.typesafe.akka" % "akka-testkit_2.11" % "2.4.8",
@@ -55,7 +55,7 @@ dependencyOverrides in ThisBuild ++= Set(
   "org.apache.commons" % "commons-lang3" % "3.2.1",
   "org.bitlet" % "weupnp" % "0.1.4",
   "org.codehaus.woodstox" % "stax2-api" % "3.1.4",
-  "org.consensusresearch" % "scrypto_2.11" % "1.0.4",
+  "org.consensusresearch" % "scrypto_2.11" % "1.2.0-RC2",
   "org.javassist" % "javassist" % "3.18.2-GA",
   "org.joda" % "joda-convert" % "1.7",
   "org.mapdb" % "mapdb" % "2.0-beta13",
@@ -73,9 +73,9 @@ dependencyOverrides in ThisBuild ++= Set(
   "org.scalatest" % "scalatest_2.11" % "2.3.0-SNAP2",
   "org.scoverage" % "scalac-scoverage-plugin_2.11" % "1.1.1",
   "org.scoverage" % "scalac-scoverage-runtime_2.11" % "1.1.1",
-  "org.slf4j" % "slf4j-api" % "1.7.20",
+  "org.slf4j" % "slf4j-api" % "1.7.21",
   "org.typelevel" % "macro-compat_2.11" % "1.1.1",
   "org.whispersystems" % "curve25519-java" % "0.2.4",
   "org.yaml" % "snakeyaml" % "1.12"
 )
-// LIBRARY_DEPENDENCIES_HASH c9f5a13d0011c65c57b98007063eca8cd9dcc55b
+// LIBRARY_DEPENDENCIES_HASH 75766bcd62a3516899a8268ebca8c9784b64a502
