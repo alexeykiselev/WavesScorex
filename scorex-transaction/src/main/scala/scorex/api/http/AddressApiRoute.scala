@@ -9,9 +9,9 @@ import akka.http.scaladsl.server.Route
 import io.swagger.annotations._
 import play.api.libs.json._
 import scorex.account.{Account, PublicKeyAccount}
-import scorex.app.RunnableApplication
-import scorex.crypto.EllipticCurveImpl
+import scorex.app.Application
 import scorex.crypto.encode.Base58
+import scorex.crypto.signatures.Curve25519
 
 import scala.util.{Failure, Success, Try}
 
@@ -256,7 +256,7 @@ case class AddressApiRoute(override val application: RunnableApplication)(implic
               wallet.privateKeyAccount(address) match {
                 case None => WalletAddressNotExists.response
                 case Some(account) =>
-                  Try(EllipticCurveImpl.sign(account, message.getBytes(StandardCharsets.UTF_8))) match {
+                  Try(Curve25519.sign(account.privateKey, message.getBytes(StandardCharsets.UTF_8))) match {
                     case Success(signature) =>
                       val msg = if (encode) Base58.encode(message.getBytes) else message
                       val json = Json.obj("message" -> msg,
@@ -295,7 +295,7 @@ case class AddressApiRoute(override val application: RunnableApplication)(implic
                     case (Success(msgBytes), Success(signatureBytes), Success(pubKeyBytes)) =>
                       val account = new PublicKeyAccount(pubKeyBytes)
                       val isValid = account.address == address &&
-                        EllipticCurveImpl.verify(signatureBytes, msgBytes, pubKeyBytes)
+                        Curve25519.verify(signatureBytes, msgBytes, pubKeyBytes)
                       JsonResponse(Json.obj("valid" -> isValid), StatusCodes.OK)
                   }
                 }

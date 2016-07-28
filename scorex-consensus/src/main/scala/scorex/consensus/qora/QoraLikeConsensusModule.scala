@@ -4,8 +4,8 @@ import com.google.common.primitives.{Bytes, Longs}
 import scorex.account.{Account, PrivateKeyAccount, PublicKeyAccount}
 import scorex.block.{Block, BlockField}
 import scorex.consensus.{ConsensusModule, OneGeneratorConsensusModule, PoSConsensusModule}
-import scorex.crypto.EllipticCurveImpl
 import scorex.crypto.hash.FastCryptographicHash._
+import scorex.crypto.signatures.Curve25519
 import scorex.transaction._
 import scorex.utils.NTP
 
@@ -44,7 +44,7 @@ class QoraLikeConsensusModule extends PoSConsensusModule[QoraLikeConsensusBlockD
       .ensuring(_.size == GeneratingBalanceLength)
 
     val si = Bytes.concat(generatorSignature, genBalanceBytes, account.publicKey)
-    EllipticCurveImpl.sign(account, si)
+    Curve25519.sign(account.privateKey, si)
   }
 
   def getBaseTarget(generatingBalance: Long): BigInt = BigInt(minMaxBalance(generatingBalance)) * getBlockTime(generatingBalance)

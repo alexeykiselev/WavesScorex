@@ -6,9 +6,8 @@ import java.util
 import com.google.common.primitives.{Bytes, Ints}
 import scorex.block.Block
 import scorex.consensus.ConsensusModule
-import scorex.crypto.EllipticCurveImpl
-import scorex.crypto.singing.SigningFunctions
-import scorex.crypto.singing.SigningFunctions.Signature
+import scorex.crypto.signatures.{Curve25519, SigningFunctions}
+import scorex.crypto.signatures.SigningFunctions.Signature
 import scorex.network.message.Message._
 import scorex.transaction.{History, TransactionModule}
 
@@ -65,7 +64,7 @@ class BasicMessagesRepo()(implicit val transactionalModule: TransactionModule[_]
 
   trait SignaturesSeqSpec extends MessageSpec[Seq[SigningFunctions.Signature]] {
 
-    import scorex.crypto.EllipticCurveImpl.SignatureLength
+    import scorex.crypto.signatures.Curve25519.SignatureLength
 
     private val DataLength = 4
 
@@ -107,7 +106,7 @@ class BasicMessagesRepo()(implicit val transactionalModule: TransactionModule[_]
     override def serializeData(signature: Block.BlockId): Array[Byte] = signature
 
     override def deserializeData(bytes: Array[Byte]): Try[Block.BlockId] = Try {
-      require(bytes.length == EllipticCurveImpl.SignatureLength, "Data does not match length")
+      require(bytes.length == Curve25519.SignatureLength, "Data does not match length")
       bytes
     }
   }

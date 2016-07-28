@@ -6,8 +6,7 @@ import akka.http.scaladsl.model.{ContentTypes, HttpEntity, StatusCode}
 import akka.http.scaladsl.server.{Directive0, Directives, Route}
 import akka.util.Timeout
 import play.api.libs.json.JsValue
-import scorex.app.RunnableApplication
-import scorex.crypto.hash.CryptographicHash.Digest
+import scorex.app.Application
 import scorex.crypto.hash.SecureCryptographicHash
 
 import scala.concurrent.duration._
@@ -16,7 +15,7 @@ import scala.concurrent.{Await, Future}
 final case class JsonResponse(response: JsValue, code: StatusCode)
 
 trait ApiRoute extends Directives with CommonApiFunctions {
-  val application: RunnableApplication
+  val application: Application
   val context: ActorRefFactory
   val route: Route
 
@@ -58,7 +57,7 @@ trait ApiRoute extends Directives with CommonApiFunctions {
   }
 
   private def isValid(keyOpt: Option[String]): Boolean = {
-    lazy val keyHash: Option[Digest] = keyOpt.map(SecureCryptographicHash(_))
+    lazy val keyHash: Option[Array[Byte]] = keyOpt.map(SecureCryptographicHash(_))
     (apiKeyHash, keyHash) match {
       case (None, _) => true
       case (Some(expected), Some(passed)) => expected sameElements passed

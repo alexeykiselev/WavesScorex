@@ -1,8 +1,8 @@
 package scorex.lagonaki.integration.api
 
 import org.scalatest.{FunSuite, Matchers}
-import scorex.crypto.EllipticCurveImpl
 import scorex.crypto.encode.Base58
+import scorex.crypto.signatures.Curve25519
 import scorex.lagonaki.TestingCommons
 
 class AddressesAPISpecification extends FunSuite with Matchers {
@@ -61,7 +61,7 @@ class AddressesAPISpecification extends FunSuite with Matchers {
     pubkey.isDefined shouldBe true
     signature.isDefined shouldBe true
 
-    EllipticCurveImpl.verify(signature.get, message.getBytes, pubkey.get)
+    Curve25519.verify(signature.get, message.getBytes, pubkey.get)
 
     POST.incorrectApiKeyTest(s"/addresses/sign/$address")
   }
@@ -102,7 +102,7 @@ class AddressesAPISpecification extends FunSuite with Matchers {
     pubkey.isDefined shouldBe true
     signature.isDefined shouldBe true
 
-    EllipticCurveImpl.verify(signature.get, message.getBytes, pubkey.get)
+    Curve25519.verify(signature.get, message.getBytes, pubkey.get)
 
     POST.incorrectApiKeyTest(s"/addresses/signText/$address")
   }

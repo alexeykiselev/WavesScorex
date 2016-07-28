@@ -1,7 +1,6 @@
 package scorex.lagonaki.integration.api
 
 import org.scalatest.{FunSuite, Matchers}
-import scorex.crypto.EllipticCurveImpl
 import scorex.crypto.encode.Base58
 import scorex.lagonaki.TestingCommons
 

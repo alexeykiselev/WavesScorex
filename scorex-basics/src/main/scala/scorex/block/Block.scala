@@ -4,8 +4,8 @@ import com.google.common.primitives.{Bytes, Ints, Longs}
 import play.api.libs.json.Json
 import scorex.account.{PrivateKeyAccount, PublicKeyAccount}
 import scorex.consensus.ConsensusModule
-import scorex.crypto.EllipticCurveImpl
 import scorex.crypto.encode.Base58
+import scorex.crypto.signatures.Curve25519
 import scorex.serialization.Deser
 import scorex.transaction.TransactionModule
 import scorex.utils.ScorexLogging
@@ -80,13 +80,13 @@ trait Block extends ScorexLogging {
       signerDataField.bytes
   }
 
-  lazy val bytesWithoutSignature = bytes.dropRight(EllipticCurveImpl.SignatureLength)
+  lazy val bytesWithoutSignature = bytes.dropRight(Curve25519.SignatureLength)
 
   def isValid: Boolean = {
     if (transactionModule.blockStorage.history.contains(this)) true //applied blocks are valid
     else {
       lazy val history = transactionModule.blockStorage.history.contains(referenceField.value)
-      lazy val signature = EllipticCurveImpl.verify(signerDataField.value.signature, bytesWithoutSignature,
+      lazy val signature = Curve25519.verify(signerDataField.value.signature, bytesWithoutSignature,
         signerDataField.value.generator.publicKey)
       lazy val consensus = consensusModule.isValid(this)
       lazy val transaction = transactionModule.isValid(this)
@@ -111,7 +111,7 @@ object Block extends ScorexLogging {
   type BlockId = Array[Byte]
   type BlockIds = Seq[BlockId]
 
-  val BlockIdLength = EllipticCurveImpl.SignatureLength
+  val BlockIdLength = Curve25519.SignatureLength
 
   //TODO Deser[Block] ??
   def parseBytes[CDT, TDT](bytes: Array[Byte])
@@ -140,10 +140,10 @@ object Block extends ScorexLogging {
     val txBlockField = transModule.parseBytes(tBytes).get
     position += tBytesLength
 
-    val genPK = bytes.slice(position, position + EllipticCurveImpl.KeyLength)
-    position += EllipticCurveImpl.KeyLength
+    val genPK = bytes.slice(position, position + Curve25519.KeyLength)
+    position += Curve25519.KeyLength
 
-    val signature = bytes.slice(position, position + EllipticCurveImpl.SignatureLength)
+    val signature = bytes.slice(position, position + Curve25519.SignatureLength)
 
     new Block {
       override type ConsensusDataType = CDT
@@ -211,7 +211,7 @@ object Block extends ScorexLogging {
                              transModule: TransactionModule[TDT]): Block = {
     val nonSignedBlock = build(version, timestamp, reference, consensusData, transactionData, signer, Array())
     val toSign = nonSignedBlock.bytes
-    val signature = EllipticCurveImpl.sign(signer, toSign)
+    val signature = Curve25519.sign(signer.privateKey, toSign)
     build(version, timestamp, reference, consensusData, transactionData, signer, signature)
   }
 
@@ -232,6 +232,6 @@ object Block extends ScorexLogging {
     override val timestampField: LongBlockField = LongBlockField("timestamp", timestamp)
 
     override val signerDataField: SignerDataBlockField = new SignerDataBlockField("signature",
-      SignerData(new PublicKeyAccount(Array.fill(32)(0)), Array.fill(EllipticCurveImpl.SignatureLength)(0)))
+      SignerData(new PublicKeyAccount(Array.fill(32)(0)), Array.fill(Curve25519.SignatureLength)(0)))
   }
 }
