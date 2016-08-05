@@ -5,6 +5,10 @@ dependencyOverrides in ThisBuild ++= Set(
   "ch.qos.logback" % "logback-classic" % "1.1.7",
   "ch.qos.logback" % "logback-core" % "1.1.7",
   "com.chuusai" % "shapeless_2.11" % "2.3.1",
+  "com.esotericsoftware" % "kryo" % "4.0.0",
+  "com.esotericsoftware" % "kryo-shaded" % "3.0.3",
+  "com.esotericsoftware" % "minlog" % "1.3.0",
+  "com.esotericsoftware" % "reflectasm" % "1.11.3",
   "com.fasterxml.jackson.core" % "jackson-annotations" % "2.5.4",
   "com.fasterxml.jackson.core" % "jackson-core" % "2.5.4",
   "com.fasterxml.jackson.core" % "jackson-databind" % "2.5.4",
@@ -25,6 +29,8 @@ dependencyOverrides in ThisBuild ++= Set(
   "com.h2database" % "h2-mvstore" % "1.4.192",
   "com.ning" % "async-http-client" % "1.9.11",
   "com.thoughtworks.paranamer" % "paranamer" % "2.6",
+  "com.twitter" % "chill-java" % "0.8.0",
+  "com.twitter" % "chill_2.11" % "0.8.0",
   "com.typesafe" % "config" % "1.3.0",
   "com.typesafe" % "ssl-config-akka_2.11" % "0.2.1",
   "com.typesafe" % "ssl-config-core_2.11" % "0.2.1",
@@ -59,6 +65,8 @@ dependencyOverrides in ThisBuild ++= Set(
   "org.javassist" % "javassist" % "3.18.2-GA",
   "org.joda" % "joda-convert" % "1.7",
   "org.mapdb" % "mapdb" % "2.0-beta13",
+  "org.objenesis" % "objenesis" % "2.2",
+  "org.ow2.asm" % "asm" % "5.0.4",
   "org.reactivestreams" % "reactive-streams" % "1.0.0",
   "org.reflections" % "reflections" % "0.9.10",
   "org.scala-lang.modules" % "scala-java8-compat_2.11" % "0.7.0",
@@ -78,4 +86,4 @@ dependencyOverrides in ThisBuild ++= Set(
   "org.whispersystems" % "curve25519-java" % "0.2.4",
   "org.yaml" % "snakeyaml" % "1.12"
 )
-// LIBRARY_DEPENDENCIES_HASH 75766bcd62a3516899a8268ebca8c9784b64a502
+// LIBRARY_DEPENDENCIES_HASH 23efb0b5ae3cd55223eb3fd69e0b3e9f046a3ffc

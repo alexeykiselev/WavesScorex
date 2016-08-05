@@ -1,0 +1,23 @@
+package scorex.serializers
+
+import java.net.InetSocketAddress
+
+import com.esotericsoftware.kryo.Kryo
+import com.twitter.chill.IKryoRegistrar
+import scorex.app.ApplicationVersionV1
+import scorex.network.HandshakeV1
+import scorex.network.messages.NetworkMessage
+
+class ScorexRegistrar extends IKryoRegistrar {
+  override def apply(k: Kryo): Unit = {
+    k.setRegistrationRequired(true)
+    k.setReferences(false)
+    k.register(classOf[ApplicationVersionV1], new ApplicationVersionV1Serializer)
+    k.register(classOf[String], new ByteLengthUtf8StringSerializer)
+    k.register(classOf[HandshakeV1], new HandshakeV1Serializer)
+    k.register(classOf[InetSocketAddress], new InetSocketAddressSerializer)
+    k.register(classOf[Option[InetSocketAddress]], new InetSocketAddressOptionSerializer)
+    k.register(classOf[NetworkMessage], new NetworkMessageSerializer)
+  }
+}
+

@@ -1,9 +1,12 @@
+import sbt.Keys._
 import sbt._
 
 object Dependencies {
 
+  val akkaVersion = "2.4.8"
+
   lazy val testKit = Seq(
-    "com.typesafe.akka" %% "akka-testkit" % "2.+",
+    "com.typesafe.akka" %% "akka-testkit" % akkaVersion,
     "org.scalatest" %% "scalatest" % "2.+" % "test",
     "org.scalactic" %% "scalactic" % "2.+" % "test",
     "org.scalacheck" %% "scalacheck" % "1.12.+" % "test",
@@ -13,11 +16,13 @@ object Dependencies {
 
   lazy val serialization = Seq(
     "com.google.guava" % "guava" % "18.+",
-    "com.typesafe.play" %% "play-json" % "2.4.+"
+    "com.typesafe.play" %% "play-json" % "2.4.+",
+    "com.esotericsoftware" % "kryo" % "4.0.0",
+    "com.twitter" %% "chill" % "0.8.0"
   )
 
   lazy val akka = Seq(
-    "com.typesafe.akka" %% "akka-actor" % "2.+"
+    "com.typesafe.akka" %% "akka-actor" % akkaVersion
   )
 
   lazy val p2p = Seq(
@@ -35,7 +40,7 @@ object Dependencies {
   )
 
   lazy val http = Seq(
-    "com.typesafe.akka" %% "akka-http-experimental" % "2.+",
+    "com.typesafe.akka" %% "akka-http-experimental" % akkaVersion,
     "com.chuusai" %% "shapeless" % "2.+",
     "io.swagger" %% "swagger-scala-module" % "1.+",
     "io.swagger" % "swagger-core" % "1.+",
