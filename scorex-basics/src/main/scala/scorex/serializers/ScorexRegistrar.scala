@@ -6,7 +6,7 @@ import com.esotericsoftware.kryo.Kryo
 import com.twitter.chill.IKryoRegistrar
 import scorex.app.ApplicationVersionV1
 import scorex.network.HandshakeV1
-import scorex.network.messages.{GetBlockMessageContentV1, NetworkMessage, ScoreMessageContentV1}
+import scorex.network.messages._
 
 class ScorexRegistrar extends IKryoRegistrar {
   override def apply(k: Kryo): Unit = {
@@ -20,6 +20,8 @@ class ScorexRegistrar extends IKryoRegistrar {
     k.register(classOf[NetworkMessage], new NetworkMessageSerializer)
     k.register(classOf[ScoreMessageContentV1], new ScoreMessageContentV1Serializer)
     k.register(classOf[GetBlockMessageContentV1], new GetBlockMessageContentV1Serializer)
+    k.register(classOf[GetPeersMessageContentV1], new GetPeersMessageContentV1Serializer)
+    k.register(classOf[PeersMessageContentV1], new PeersMessageContentV1Serializer)
   }
 }
 

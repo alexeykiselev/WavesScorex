@@ -20,10 +20,10 @@ class NetworkMessageSerializer extends NullableSerializer[NetworkMessage] {
 
     val contentId = input.readByte()
     val length = input.readInt()
-    val checksum = input.readBytes(NetworkMessage.ChecksumLength)
+    val checksum = if (length != 0) input.readBytes(NetworkMessage.ChecksumLength) else Array[Byte]()
     val content = input.readBytes(length)
 
-    if (!NetworkMessage.verifyChecksum(content, checksum))
+    if (!checksum.isEmpty && !NetworkMessage.verifyChecksum(content, checksum))
       throw new NetworkMessageException(s"Incorrect message checksum")
 
     NetworkMessage(contentId, content)
