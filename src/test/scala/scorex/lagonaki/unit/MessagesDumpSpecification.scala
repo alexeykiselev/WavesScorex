@@ -3,13 +3,11 @@ package scorex.lagonaki.unit
 import java.net.{InetAddress, InetSocketAddress}
 import java.nio.ByteBuffer
 
-import akka.actor.{ActorRef, DeadLetter}
 import org.scalacheck.{Arbitrary, Gen}
 import org.scalatest.prop.{GeneratorDrivenPropertyChecks, PropertyChecks}
 import org.scalatest.{Matchers, PropSpec}
 import scorex.crypto.encode.Base58
 import scorex.lagonaki.TestingCommons
-import scorex.network.ConnectedPeer
 import scorex.network.message.{BasicMessagesRepo, Message, MessageHandler}
 import scorex.transaction.History
 

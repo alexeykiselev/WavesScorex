@@ -302,7 +302,7 @@ class NetworkMessagesSpecification extends PropSpec with PropertyChecks with Mat
       val message = NetworkMessage(content.id, contentBytes)
       val messageBytes = pool.toBytesWithoutClass(message)
 
-      println(s"('${Base58.encode(messageBytes)}', '${signatures.map(Base58.encode(_)).mkString(",")}'),")
+      println(s"('${Base58.encode(messageBytes)}', '${signatures.map(s => Base58.encode(s)).mkString(",")}'),")
     }
   }
 
