@@ -23,6 +23,7 @@ class ScorexRegistrar extends IKryoRegistrar {
     k.register(classOf[GetPeersMessageContentV1], new GetPeersMessageContentV1Serializer)
     k.register(classOf[PeersMessageContentV1], new PeersMessageContentV1Serializer)
     k.register(classOf[GetSignaturesMessageContentV1], new GetSignaturesMessageContentV1Serializer)
+    k.register(classOf[SignaturesMessageContentV1], new SignaturesMessageContentV1Serializer)
   }
 }
 
